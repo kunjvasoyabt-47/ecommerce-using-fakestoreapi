@@ -1,0 +1,47 @@
+// --- Static Brand Colors ---
+$primary-teal: #1a8a7f;
+$primary-hover: #136a61;
+$danger-color: #ef4444;
+
+// --- Dynamic Theme Colors (CSS Variables) ---
+:root {
+  // Light Mode Defaults
+  --bg-body: #ffffff;
+  --bg-surface: #f9fafb;
+  --text-main: #111827;
+  --text-muted: #4b5563;
+  --border-color: #e5e7eb;
+  --nav-bg: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  // Dark Mode Overrides
+  --bg-body: #0f172a;
+  --bg-surface: #1e293b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --nav-bg: #0f172a;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+// --- Mixins & Fonts ---
+$font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+// Responsive Breakpoints
+@mixin mobile {
+  @media (max-width: 768px) { @content; }
+}
+
+@mixin tablet {
+  @media (min-width: 769px) and (max-width: 1024px) { @content; }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
