@@ -1,0 +1,189 @@
+@use '../../styles/variables' as *;
+
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px); // Fill remaining height below navbar
+  width: 100%;
+  padding: 1rem; // Safe spacing from screen edges
+  background-color: var(--bg-surface);
+
+  // FIX: 'margin: auto' on the card handles centering AND scrolling automatically
+  .auth-card {
+    margin: auto; // Centers vertically & horizontally, but allows scroll if too tall
+    
+    background: var(--bg-body);
+    width: 100%;
+    max-width: 450px; // stops growing on desktop
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s;
+
+    // --- HEADER ---
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      
+      .logo-icon {
+        font-size: 3rem;
+        color: $primary-teal;
+        display: block;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+      }
+      h2 { 
+        color: var(--text-main); 
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+    }
+
+    // --- FORM ELEMENTS ---
+    .form-group {
+      margin-bottom: 1.25rem;
+      
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: var(--text-main);
+      }
+      
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 6px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-surface);
+        color: var(--text-main);
+        font-size: 1rem;
+        transition: border-color 0.2s;
+        
+        &:focus {
+          outline: none;
+          border-color: $primary-teal;
+          box-shadow: 0 0 0 3px rgba($primary-teal, 0.1);
+        }
+      }
+    }
+
+    // --- BUTTONS ---
+    .btn-full {
+      width: 100%;
+      background-color: $primary-teal;
+      color: white;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 1rem;
+      transition: background 0.2s;
+      
+      &:hover { background-color: $primary-hover; }
+      &:active { transform: scale(0.98); }
+      &:disabled {
+        background-color: #ccc; // Grey out if disabled
+        cursor: not-allowed;
+      }
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      
+      a { 
+        color: $primary-teal; 
+        font-weight: 600; 
+        &:hover { text-decoration: underline; }
+      }
+    }
+
+    // --- RED ERROR STYLES ---
+    .input-error {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2; 
+      
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        border-color: #ef4444 !important;
+      }
+    }
+
+    .error-text {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .error-banner {
+      background-color: #fef2f2;
+      color: #ef4444;
+      border: 1px solid #fee2e2;
+      padding: 10px 14px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-align: center;
+      animation: shake 0.3s ease-in-out;
+    }
+
+    .password-requirements {
+      margin-top: 0.8rem;
+      padding: 0.8rem;
+      background-color: #fef2f2;
+      border: 1px solid #fee2e2;
+      border-radius: 6px;
+
+      small {
+        display: block;
+        color: #b91c1c;
+        font-weight: 700;
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        .error-text-bullet {
+          color: #ef4444;
+          font-size: 0.8rem;
+          margin-bottom: 2px;
+          position: relative;
+          padding-left: 12px;
+          &::before {
+            content: "•"; position: absolute; left: 0; color: #ef4444;
+          }
+        }
+      }
+    }
+
+    // --- MOBILE RESPONSIVENESS ---
+    @include mobile {
+      padding: 1.5rem;
+      // Adds a little extra space at the bottom so scroll doesn't feel tight
+      margin-bottom: 2rem; 
+      
+      .auth-header h2 { font-size: 1.25rem; }
+    }
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
