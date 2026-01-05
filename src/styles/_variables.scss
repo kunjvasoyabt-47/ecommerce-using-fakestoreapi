@@ -12,6 +12,14 @@ $danger-color: #ef4444;
   --text-muted: #4b5563;
   --border-color: #e5e7eb;
   --nav-bg: #ffffff;
+  
+  // New Card Variables (Light)
+  --bg-card: #ffffff;
+  --bg-card-image: #ffffff; 
+  --border-card: #e5e7eb;
+  --text-card-title: #1f2937;
+  --text-card-price: #0f172a;
+  
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
@@ -24,6 +32,14 @@ $danger-color: #ef4444;
   --text-muted: #94a3b8;
   --border-color: #334155;
   --nav-bg: #0f172a;
+  
+  // New Card Variables (Dark)
+  --bg-card: #1e293b;       // Matches surface for seamless look
+  --bg-card-image: #ffffff; // KEEP WHITE: Prevents JPG artifacts
+  --border-card: #334155;
+  --text-card-title: #e2e8f0;
+  --text-card-price: #f8fafc;
+
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
@@ -31,7 +47,6 @@ $danger-color: #ef4444;
 // --- Mixins & Fonts ---
 $font-family: 'Inter', system-ui, -apple-system, sans-serif;
 
-// Responsive Breakpoints
 @mixin mobile {
   @media (max-width: 768px) { @content; }
 }
