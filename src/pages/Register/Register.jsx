@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { REGEX, PASS_CHECKS } from '../../services/validation';
 import { registerUser } from '../../services/api'; 
-import './Register.scss';
+import Navbar from '../../components/Navbar/Navbar';
+import { ROUTES } from '../../services/routes'; 
+
 
 const Register = () => {
   const navigate = useNavigate();
@@ -69,7 +71,7 @@ const Register = () => {
       
       // Success Alert
       alert('Registration Successful! Please Login.');
-      navigate('/login');
+      navigate(ROUTES.LOGIN);
 
     } catch (err) {
       console.error(err);
@@ -80,6 +82,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="auth-wrapper">
       <div className="auth-card">
         <div className="auth-header"><h2>Create Account</h2></div>
@@ -118,9 +122,10 @@ const Register = () => {
             {isLoading ? 'Registering...' : 'Register'}
           </button>
         </form>
-        <p className="auth-footer">Already have an account? <Link to="/login">Sign in</Link></p>
+        <p className="auth-footer">Already have an account? <Link to={ROUTES.LOGIN}>Sign in</Link></p>
       </div>
     </div>
+    </>
   );
 };
 

@@ -2,7 +2,9 @@ import  { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { REGEX, PASS_CHECKS } from '../../services/validation';
 import { loginUser } from '../../services/api'; 
+import Navbar from '../../components/Navbar/Navbar';
 import './Login.scss';
+import { ROUTES } from '../../services/routes';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -69,24 +71,19 @@ const Login = () => {
 
     try {
       setIsLoading(true);
-      
-      // 1. HIT THE API: https://fakestoreapi.com/auth/login
+      // 1. LOGIN REQUEST
       const response = await loginUser(credentials);
       
       // 2. GET THE TOKEN
-      // Note: FakeStoreAPI returns the token in the JSON Body: { "token": "..." }
-      // This is the value you will use in Authorization headers for future requests.
       const token = response.data.token;
       
       // 3. STORE IN LOCAL STORAGE
       if (token) {
         localStorage.setItem('userToken', token);
-        
-        // 4. ALERT SUCCESS
         alert('Login Successful! Token stored.');
         
         // 5. REDIRECT
-        navigate('/');
+        navigate(ROUTES.HOME);
       } else {
         throw new Error('No token received');
       }
@@ -100,6 +97,8 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="auth-wrapper">
       <div className="auth-card">
         <div className="auth-header"><h2>Sign in</h2></div>
@@ -116,7 +115,6 @@ const Login = () => {
               value={credentials.username} 
               onChange={handleChange}
               className={errors.username ? 'input-error' : ''} 
-              placeholder="e.g. mor_2314"
               required 
             />
             {errors.username && <span className="error-text">{errors.username}</span>}
@@ -162,9 +160,10 @@ const Login = () => {
           </button>
         </form>
 
-        <p className="auth-footer">New here? <Link to="/register">Create an account</Link></p>
+        <p className="auth-footer">New here? <Link to={ROUTES.REGISTER}>Create an account</Link></p>
       </div>
     </div>
+    </>
   );
 };
 

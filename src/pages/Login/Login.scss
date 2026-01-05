@@ -1,25 +1,32 @@
 @use '../../styles/variables' as *;
 
 .auth-wrapper {
+  // 1. Activate Flexbox
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 80px); // Fill remaining height below navbar
+  
+  // 2. CENTER CONTENT (Vertically & Horizontally)
+  justify-content: center; 
+  align-items: center;
+
+  // 3. Size the wrapper
+  min-height: calc(100vh - 80px); // Full height minus navbar
   width: 100%;
-  padding: 1rem; // Safe spacing from screen edges
+  padding: 1rem; // Prevents card from touching edges on small screens
   background-color: var(--bg-surface);
 
-  // FIX: 'margin: auto' on the card handles centering AND scrolling automatically
   .auth-card {
-    margin: auto; // Centers vertically & horizontally, but allows scroll if too tall
-    
     background: var(--bg-body);
     width: 100%;
-    max-width: 450px; // stops growing on desktop
+    max-width: 450px; // Standard width
     padding: 2.5rem;
     border-radius: 12px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     transition: transform 0.2s;
+    
+    // Note: Since the parent (.auth-wrapper) has 'justify-content: center',
+    // we don't need special margins here. The wrapper handles the positioning.
 
     // --- HEADER ---
     .auth-header {
@@ -86,7 +93,7 @@
       &:hover { background-color: $primary-hover; }
       &:active { transform: scale(0.98); }
       &:disabled {
-        background-color: #ccc; // Grey out if disabled
+        background-color: #ccc;
         cursor: not-allowed;
       }
     }
@@ -104,7 +111,7 @@
       }
     }
 
-    // --- RED ERROR STYLES ---
+    // --- ERROR STYLES ---
     .input-error {
       border-color: #ef4444 !important;
       background-color: #fef2f2; 
@@ -173,17 +180,17 @@
 
     // --- MOBILE RESPONSIVENESS ---
     @include mobile {
+      // Because the wrapper has 'justify-content: center', 
+      // the card will automatically be centered here.
+      // We just reduce padding slightly for smaller screens.
       padding: 1.5rem;
-      // Adds a little extra space at the bottom so scroll doesn't feel tight
-      margin-bottom: 2rem; 
+      
+      // Ensure it doesn't get too tight
+      width: 100%;
+      margin: 0; 
       
       .auth-header h2 { font-size: 1.25rem; }
     }
   }
 }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
-}

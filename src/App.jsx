@@ -4,21 +4,20 @@ import { ThemeProvider } from './context/ThemeContext';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
+import Products from './pages/Products/Products';
 import './styles/main.scss';
-
+import { ROUTES } from './services/routes';   
 function App() {
   return (
     <ThemeProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path={ROUTES.HOME} element={<Home />} />
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+          <Route path={ROUTES.REGISTER} element={<Register />} />
+          <Route path={ROUTES.PRODUCTS} element={<Products />} />
           
-          {/* Placeholder Routes */}
-          <Route path="/products" element={<Home />} />
-          <Route path="/stores" element={<Home />} />
-          <Route path="/about" element={<Home />} />
+      
         </Routes>
       </Router>
     </ThemeProvider>

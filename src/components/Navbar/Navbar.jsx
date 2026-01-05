@@ -1,8 +1,8 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { FiSun, FiMoon } from 'react-icons/fi'; // Import clean Feather icons
 import './Navbar.scss';
+import { ROUTES } from '../../services/routes';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userToken');
-    navigate('/login');
+    navigate(ROUTES.LOGIN);
   };
 
   return (
@@ -22,9 +22,9 @@ const Navbar = () => {
         <div className="nav-left">
           <Link to="/" className="logo-mark">∞</Link>
           <ul className="nav-links">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/products">Product</Link></li>
-            <li><Link to="/about">About Us</Link></li>
+            <li><Link to={ROUTES.HOME}>Home</Link></li>
+            <li><Link to={ROUTES.PRODUCTS}>Product</Link></li>
+            <li><Link to={ROUTES.ABOUT}>About Us</Link></li>
           </ul>
         </div>
 
@@ -44,8 +44,8 @@ const Navbar = () => {
               <button onClick={handleLogout} className="btn-logout">Logout</button>
             ) : (
               <>
-                <Link to="/login" className="btn-login">Login</Link>
-                <Link to="/register" className="btn-signup">Sign Up</Link>
+                <Link to={ROUTES.LOGIN} className="btn-login">Login</Link>
+                <Link to={ROUTES.REGISTER} className="btn-signup">Sign Up</Link>
               </>
             )}
           </div>

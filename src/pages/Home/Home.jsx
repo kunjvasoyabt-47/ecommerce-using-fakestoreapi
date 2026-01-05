@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { getAllProducts } from '../../services/api';
 import './Home.scss';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../services/routes'; 
 
 const Home = () => {
   const [images, setImages] = useState([]);
@@ -21,11 +23,11 @@ const Home = () => {
           
           {/* Left Text */}
           <div className="hero-content">
-            <h1>Summer styles are finally here</h1>
+            <h1>Winter styles are finally here</h1>
             <p>
-              This year, our new summer collection will shelter you from the harsh elements of a world that doesn't care if you live or die.
+              Upgrade your wardrobe with our newest arrivals. Perfect for layering, built for comfort, and ready for whatever winter throws your way.
             </p>
-            <button className="btn-primary">View all Collection</button>
+            <button className="btn-primary" ><Link to={ROUTES.PRODUCTS}>View all Collection</Link></button>
           </div>
 
           {/* Right Image Grid */}

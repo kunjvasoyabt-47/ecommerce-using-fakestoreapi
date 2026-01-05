@@ -11,9 +11,57 @@ body {
   background-color: var(--bg-body);
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
-  overflow-x: hidden; // Prevent horizontal scroll on small screens
+  overflow-x: hidden; 
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem 0; // Adds consistent spacing below headings
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-main);
 }
 
-a { text-decoration: none; color: inherit; transition: color 0.2s; }
-ul { list-style: none; }
-button { font-family: inherit; cursor: pointer; }
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin: 0 0 1rem 0;
+  line-height: 1.6; 
+  color: var(--text-muted); 
+}
+
+span {
+  font-family: inherit;
+  color: inherit;
+}
+
+a { 
+  text-decoration: none; 
+  color: inherit; 
+  transition: color 0.2s; 
+}
+
+ul { 
+  list-style: none; 
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+}
