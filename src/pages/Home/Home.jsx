@@ -17,7 +17,6 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
       <main className="home-container">
         <section className="hero-section">
           

@@ -1,0 +1,53 @@
+@use '../../styles/variables' as *;
+
+.form-group {
+  margin-bottom: 1.25rem;
+  width: 100%;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-main);
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    color: var(--text-main);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-teal;
+      box-shadow: 0 0 0 3px rgba($primary-teal, 0.1);
+    }
+  }
+
+  // Error Styles
+  .input-error {
+    border-color: $danger-color !important;
+    background-color: var(--bg-surface);
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($danger-color, 0.2) !important;
+      border-color: $danger-color !important;
+    }
+  }
+
+  .error-text {
+    color: $danger-color;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}

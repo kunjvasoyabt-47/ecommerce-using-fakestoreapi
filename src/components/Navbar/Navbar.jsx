@@ -3,15 +3,15 @@ import { useTheme } from '../../context/ThemeContext';
 import { FiSun, FiMoon } from 'react-icons/fi'; // Import clean Feather icons
 import './Navbar.scss';
 import { ROUTES } from '../../services/routes';
+import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-  // eslint-disable-next-line react-refresh/only-export-components
-  const token = localStorage.getItem('userToken');
+const { token, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('userToken');
+    logout(); // Use the context function
     navigate(ROUTES.LOGIN);
   };
 

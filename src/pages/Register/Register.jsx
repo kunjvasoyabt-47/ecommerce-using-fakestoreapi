@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { REGEX, PASS_CHECKS } from '../../services/validation';
 import { registerUser } from '../../services/api'; 
-import Navbar from '../../components/Navbar/Navbar';
+import Input from '../../components/Input/Input'; // Import Added
 import { ROUTES } from '../../services/routes'; 
-
+import './Register.scss'; // Assuming you have this or use Login.scss
 
 const Register = () => {
   const navigate = useNavigate();
@@ -65,11 +65,7 @@ const Register = () => {
 
     try {
       setIsLoading(true);
-      
-      // Hit API: https://fakestoreapi.com/users
       await registerUser(formData);
-      
-      // Success Alert
       alert('Registration Successful! Please Login.');
       navigate(ROUTES.LOGIN);
 
@@ -82,36 +78,52 @@ const Register = () => {
   };
 
   return (
-    <>
-    <Navbar />
     <div className="auth-wrapper">
       <div className="auth-card">
         <div className="auth-header"><h2>Create Account</h2></div>
         
         <form onSubmit={handleRegister}>
-          <div className="form-group">
-            <label>Username</label>
-            <input name="username" type="text" value={formData.username} onChange={handleChange}
-              className={errors.username ? 'input-error' : ''} required />
-            {errors.username && <span className="error-text">{errors.username}</span>}
-          </div>
+          
+          <Input 
+            label="Username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            error={errors.username} // Pass the error string directly
+            required
+          />
 
-          <div className="form-group">
-            <label>Email</label>
-            <input name="email" type="email" value={formData.email} onChange={handleChange}
-              className={errors.email ? 'input-error' : ''} required />
-            {errors.email && <span className="error-text">{errors.email}</span>}
-          </div>
+          <Input 
+            label="Email"
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            error={errors.email}
+            required
+          />
 
-          <div className="form-group">
-            <label>Password</label>
-            <input name="password" type="password" value={formData.password} onChange={handleChange}
-              className={passwordMissing.length > 0 && formData.password ? 'input-error' : ''} required />
+          {/* Password Field - Needs special handling for the list below it */}
+          <div>
+            <Input 
+              label="Password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              // If missing items exist, show red border (passed as boolean true)
+              error={passwordMissing.length > 0 && formData.password ? true : false}
+              required
+            />
+            
+            {/* Custom Checklist UI (Kept separate from Input component) */}
             {formData.password && passwordMissing.length > 0 && (
               <div className="password-requirements">
                 <small>Missing:</small>
                 <ul>
-                  {passwordMissing.map((err, i) => <li key={i} className="error-text-bullet">{err}</li>)}
+                  {passwordMissing.map((err, i) => (
+                    <li key={i} className="error-text-bullet">{err}</li>
+                  ))}
                 </ul>
               </div>
             )}
@@ -125,7 +137,6 @@ const Register = () => {
         <p className="auth-footer">Already have an account? <Link to={ROUTES.LOGIN}>Sign in</Link></p>
       </div>
     </div>
-    </>
   );
 };
 

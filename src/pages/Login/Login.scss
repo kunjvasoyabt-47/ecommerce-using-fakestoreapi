@@ -1,34 +1,25 @@
 @use '../../styles/variables' as *;
 
 .auth-wrapper {
-  // 1. Activate Flexbox
   display: flex;
   flex-direction: column;
-  
-  // 2. CENTER CONTENT (Vertically & Horizontally)
   justify-content: center; 
   align-items: center;
-
-  // 3. Size the wrapper
-  min-height: calc(100vh - 80px); // Full height minus navbar
+  min-height: calc(100vh - 80px);
   width: 100%;
-  padding: 1rem; // Prevents card from touching edges on small screens
+  padding: 1rem;
   background-color: var(--bg-surface);
 
   .auth-card {
     background: var(--bg-body);
     width: 100%;
-    max-width: 450px; // Standard width
+    max-width: 450px;
     padding: 2.5rem;
     border-radius: 12px;
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     transition: transform 0.2s;
-    
-    // Note: Since the parent (.auth-wrapper) has 'justify-content: center',
-    // we don't need special margins here. The wrapper handles the positioning.
 
-    // --- HEADER ---
     .auth-header {
       text-align: center;
       margin-bottom: 2rem;
@@ -46,37 +37,8 @@
       }
     }
 
-    // --- FORM ELEMENTS ---
-    .form-group {
-      margin-bottom: 1.25rem;
-      
-      label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        font-size: 0.9rem;
-        color: var(--text-main);
-      }
-      
-      input {
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: 6px;
-        border: 1px solid var(--border-color);
-        background: var(--bg-surface);
-        color: var(--text-main);
-        font-size: 1rem;
-        transition: border-color 0.2s;
-        
-        &:focus {
-          outline: none;
-          border-color: $primary-teal;
-          box-shadow: 0 0 0 3px rgba($primary-teal, 0.1);
-        }
-      }
-    }
+    // --- NOTE: .form-group styles are now inside Input/Input.scss ---
 
-    // --- BUTTONS ---
     .btn-full {
       width: 100%;
       background-color: $primary-teal;
@@ -110,29 +72,8 @@
       }
     }
 
-    // --- ERROR STYLES ---
-    .input-error {
-      border-color:$danger-color !important;
-      background-color: var(--bg-surface); 
-      
-      &:focus {
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
-        border-color: $danger-color !important;
-      }
-    }
-
-    .error-text {
-      color:$danger-color;
-      font-size: 0.85rem;
-      margin-top: 0.4rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
     .error-banner {
-      background-color:var(--bg-surface);
+      background-color: var(--bg-surface);
       color: $danger-color;
       border: 1px solid var(--border-color);
       padding: 10px 14px;
@@ -144,6 +85,7 @@
       animation: shake 0.3s ease-in-out;
     }
 
+    // Password Checklist Styles (Specific to this page, kept here)
     .password-requirements {
       margin-top: 0.8rem;
       padding: 0.8rem;
@@ -160,7 +102,6 @@
       }
 
       ul {
-        list-style: none;
         padding: 0;
         margin: 0;
         
@@ -177,19 +118,10 @@
       }
     }
 
-    // --- MOBILE RESPONSIVENESS ---
     @include mobile {
-      // Because the wrapper has 'justify-content: center', 
-      // the card will automatically be centered here.
-      // We just reduce padding slightly for smaller screens.
       padding: 1.5rem;
-      
-      // Ensure it doesn't get too tight
       width: 100%;
       margin: 0; 
-      
-      .auth-header h2 { font-size: 1.25rem; }
     }
   }
 }
-

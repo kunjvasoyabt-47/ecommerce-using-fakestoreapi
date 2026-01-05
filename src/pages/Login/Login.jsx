@@ -1,15 +1,16 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { REGEX, PASS_CHECKS } from '../../services/validation';
 import { loginUser } from '../../services/api'; 
-import Navbar from '../../components/Navbar/Navbar';
+import { useAuth } from '../../context/AuthContext'; // <--- 1. Import Auth Context
+import Input from '../../components/Input/Input'; 
 import './Login.scss';
 import { ROUTES } from '../../services/routes';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // <--- 2. Get the login function from context
 
-  // FakeStoreAPI requires 'username' and 'password'
   const [credentials, setCredentials] = useState({
     username: '', 
     password: ''
@@ -64,25 +65,20 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Block submit if there are errors or empty fields
     if (errors.username || passwordMissing.length > 0 || !credentials.username || !credentials.password) {
       return;
     }
 
     try {
       setIsLoading(true);
-      // 1. LOGIN REQUEST
       const response = await loginUser(credentials);
-      
-      // 2. GET THE TOKEN
       const token = response.data.token;
       
-      // 3. STORE IN LOCAL STORAGE
       if (token) {
-        localStorage.setItem('userToken', token);
-        alert('Login Successful! Token stored.');
+        // --- 3. USE CONTEXT LOGIN (Updates Navbar immediately) ---
+        login(token); 
         
-        // 5. REDIRECT
+        alert('Login Successful!');
         navigate(ROUTES.HOME);
       } else {
         throw new Error('No token received');
@@ -97,8 +93,6 @@ const Login = () => {
   };
 
   return (
-    <>
-    <Navbar />
     <div className="auth-wrapper">
       <div className="auth-card">
         <div className="auth-header"><h2>Sign in</h2></div>
@@ -106,30 +100,25 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           {globalError && <div className="error-banner">{globalError}</div>}
           
-          {/* USERNAME FIELD */}
-          <div className="form-group">
-            <label>Username</label>
-            <input 
-              name="username" 
-              type="text" 
-              value={credentials.username} 
-              onChange={handleChange}
-              className={errors.username ? 'input-error' : ''} 
-              required 
-            />
-            {errors.username && <span className="error-text">{errors.username}</span>}
-          </div>
+          <Input
+            label="Username"
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+            error={errors.username}
+            required
+          />
 
-          {/* PASSWORD FIELD */}
-          <div className="form-group">
-            <label>Password</label>
-            <input 
-              name="password" 
-              type="password" 
-              value={credentials.password} 
+          <div>
+            <Input
+              label="Password"
+              name="password"
+              type="password"
+              value={credentials.password}
               onChange={handleChange}
-              className={passwordMissing.length > 0 && credentials.password ? 'input-error' : ''}
-              required 
+              // Show red border if missing reqs AND user has started typing
+              error={passwordMissing.length > 0 && credentials.password ? true : false}
+              required
             />
             
             {/* Checklist */}
@@ -163,7 +152,6 @@ const Login = () => {
         <p className="auth-footer">New here? <Link to={ROUTES.REGISTER}>Create an account</Link></p>
       </div>
     </div>
-    </>
   );
 };
 
