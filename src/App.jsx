@@ -9,6 +9,7 @@ import './styles/main.scss';
 import { ROUTES } from './services/routes';  
 import Navbar from './components/Navbar/Navbar'; 
 import { AuthProvider } from './context/AuthContext';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
 function App() {
   return (
     <ThemeProvider>
@@ -21,6 +22,7 @@ function App() {
           <Route path={ROUTES.LOGIN} element={<Login />} />
           <Route path={ROUTES.REGISTER} element={<Register />} />
           <Route path={ROUTES.PRODUCTS} element={<Products />} />
+          <Route path={ROUTES.PRODUCT_DETAILS} element={<ProductDetails />} />
           
         </Routes>
       </Router>

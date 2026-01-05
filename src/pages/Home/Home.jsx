@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../../components/Navbar/Navbar';
 import { getAllProducts } from '../../services/api';
 import './Home.scss';
 import { Link } from 'react-router-dom';

@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 const Navbar = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-const { token, logout } = useAuth();
+  const { token, logout } = useAuth();
 
   const handleLogout = () => {
     logout(); // Use the context function
