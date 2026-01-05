@@ -81,7 +81,7 @@
     .btn-full {
       width: 100%;
       background-color: $primary-teal;
-      color: white;
+      color: var(--bg-body);
       padding: 0.85rem;
       border: none;
       border-radius: 6px;
@@ -93,7 +93,7 @@
       &:hover { background-color: $primary-hover; }
       &:active { transform: scale(0.98); }
       &:disabled {
-        background-color: #ccc;
+        background-color: var(--text-muted);
         cursor: not-allowed;
       }
     }
@@ -113,17 +113,17 @@
 
     // --- ERROR STYLES ---
     .input-error {
-      border-color: #ef4444 !important;
-      background-color: #fef2f2; 
+      border-color:$danger-color !important;
+      background-color: var(--bg-surface); 
       
       &:focus {
         box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
-        border-color: #ef4444 !important;
+        border-color: $danger-color !important;
       }
     }
 
     .error-text {
-      color: #ef4444;
+      color:$danger-color;
       font-size: 0.85rem;
       margin-top: 0.4rem;
       font-weight: 500;
@@ -133,9 +133,9 @@
     }
 
     .error-banner {
-      background-color: #fef2f2;
-      color: #ef4444;
-      border: 1px solid #fee2e2;
+      background-color:var(--bg-surface);
+      color: $danger-color;
+      border: 1px solid var(--border-color);
       padding: 10px 14px;
       border-radius: 6px;
       margin-bottom: 20px;
@@ -148,13 +148,13 @@
     .password-requirements {
       margin-top: 0.8rem;
       padding: 0.8rem;
-      background-color: #fef2f2;
-      border: 1px solid #fee2e2;
+      background-color: var(--bg-body);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
 
       small {
         display: block;
-        color: #b91c1c;
+        color: $danger-color;
         font-weight: 700;
         font-size: 0.8rem;
         margin-bottom: 0.4rem;
@@ -166,13 +166,13 @@
         margin: 0;
         
         .error-text-bullet {
-          color: #ef4444;
+          color: $danger-color;
           font-size: 0.8rem;
           margin-bottom: 2px;
           position: relative;
           padding-left: 12px;
           &::before {
-            content: "•"; position: absolute; left: 0; color: #ef4444;
+            content: "•"; position: absolute; left: 0; color: $danger-color;
           }
         }
       }
