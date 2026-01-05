@@ -1,0 +1,38 @@
+@use '../../styles/variables' as *;
+
+.products-page {
+  padding: 2rem 1rem;
+  background-color: var(--bg-surface);
+  min-height: 100vh;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: var(--text-main);
+    }
+  }
+
+  // --- GRID LAYOUT ---
+  .product-grid {
+    display: grid;
+    // Responsive: Creates columns that are at least 260px wide
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+
+  // --- STATES ---
+  .loading-state, .error-state {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .error-state { color: #ef4444; }
+}
