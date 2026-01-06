@@ -5,15 +5,24 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
 import Products from './pages/Products/Products';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
 import './styles/main.scss';
 import { ROUTES } from './services/routes';  
 import Navbar from './components/Navbar/Navbar'; 
 import { AuthProvider } from './context/AuthContext';
+<<<<<<< Updated upstream
 import ProductDetails from './pages/ProductDetails/ProductDetails';
+=======
+import { CartProvider } from './context/CartContext';
+import Cart from './components/Cart/Cart'
+
+
+>>>>>>> Stashed changes
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+<<<<<<< Updated upstream
       <Router>
         <Navbar />
         <Routes>
@@ -26,6 +35,23 @@ function App() {
           
         </Routes>
       </Router>
+=======
+        <CartProvider>
+          <Router>
+            <Navbar />
+            <Routes>
+              
+              <Route path={ROUTES.HOME} element={<Home />} />
+              <Route path={ROUTES.LOGIN} element={<Login />} />
+              <Route path={ROUTES.REGISTER} element={<Register />} />
+              <Route path={ROUTES.PRODUCTS} element={<Products />} />
+              <Route path={ROUTES.PRODUCT_DETAILS} element={<ProductDetails />} />
+              <Route path={ROUTES.CART} element={<Cart />} />
+              
+            </Routes>
+          </Router>
+      </CartProvider>
+>>>>>>> Stashed changes
       </AuthProvider>
     </ThemeProvider>
   );

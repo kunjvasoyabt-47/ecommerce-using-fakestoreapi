@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
+<<<<<<< Updated upstream
 import { getAllProducts } from '../../services/api';
+=======
+import { getAllProducts } from '../../services/product';
+>>>>>>> Stashed changes
 import './Home.scss';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../services/routes'; 

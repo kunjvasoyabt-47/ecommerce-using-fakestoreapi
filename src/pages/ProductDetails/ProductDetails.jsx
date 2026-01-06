@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; 
 import { getProductById } from '../../services/product';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import './ProductDetails.scss';
