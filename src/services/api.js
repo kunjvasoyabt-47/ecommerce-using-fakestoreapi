@@ -8,27 +8,12 @@ const api = axios.create({
   },
 });
 
-
-// 1. Register User 
-export const registerUser = (userData) => {
-  // FakeStoreAPI expects a specific structure to simulate a real user creation
-  const payload = {
-    email: userData.email,
-    username: userData.username,
-    password: userData.password,
-  };
-  
-  return api.post('/users', payload);
+export const API_ENDPOINTS = {
+  REGISTER: '/users',       
+  LOGIN: '/auth/login',  
+  HOME: '/',
+  PRODUCTS: '/products',
+  CART: '/cart',
+     
 };
-
-// 2. Login User
-export const loginUser = (credentials) => {
-  // Credentials must be { username: '...', password: '...' }
-  return api.post('/auth/login', credentials);
-};
-
-export const getAllProducts = () => {
-  return api.get('/products');
-};
-
 export default api;
