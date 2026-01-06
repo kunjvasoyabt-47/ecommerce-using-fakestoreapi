@@ -3,7 +3,7 @@ import './ProductCard.scss';
 import { useAuth } from '../../context/AuthContext'; // 1. Import Auth
 import { useCart } from '../../context/CartContext';
 import { ROUTES } from '../../services/routes';
-import { API_ENDPOINTS } from './api';
+
 
 // Add isDetail prop (defaults to false)
 const ProductCard = ({ product, isDetail = false }) => {
@@ -15,8 +15,8 @@ const ProductCard = ({ product, isDetail = false }) => {
   // Handler to go to details page (only if NOT already in detail view)
   const handleCardClick = () => {
     if (!isDetail) {
-      navigate(`${ROUTES.PRODUCTS}/${id}`);  
-      }
+      navigate(ROUTES.PRODUCT_DETAILS.replace(':id', id)); 
+    }
   };
 
 const handleAddToCart = (e) => {
