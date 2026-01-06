@@ -1,17 +1,24 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // 1. Added useLocation
 import { useTheme } from '../../context/ThemeContext';
-import { FiSun, FiMoon } from 'react-icons/fi'; // Import clean Feather icons
+import { FiSun, FiMoon, FiShoppingCart } from 'react-icons/fi'; // 2. Added Cart Icon
 import './Navbar.scss';
 import { ROUTES } from '../../services/routes';
 import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext'; // 3. Added Cart Context
+
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
   const { token, logout } = useAuth();
+<<<<<<< Updated upstream
+=======
+  const { cartCount } = useCart(); // 4. Get Cart Count
+
+>>>>>>> Stashed changes
 
   const handleLogout = () => {
-    logout(); // Use the context function
+    logout(); 
     navigate(ROUTES.LOGIN);
   };
 
@@ -28,8 +35,17 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* RIGHT SIDE: Theme Icon + Auth Buttons */}
-        <div className="nav-right">
+       
+        <div className="nav-right">         
+          {/* --- NEW: CART ICON (Only visible if Logged In) --- */}
+          {token && (
+            <Link to={ROUTES.CART} className="cart-icon-btn" title="View Cart">
+              <FiShoppingCart size={20} />
+              {/* Show Red Badge if items exist */}
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+            </Link>
+          )}
+
           {/* Circular Theme Button */}
           <button 
             onClick={toggleTheme} 

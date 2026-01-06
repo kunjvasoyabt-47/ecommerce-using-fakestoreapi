@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { REGEX, PASS_CHECKS } from '../../services/validation';
-import { loginUser } from '../../services/api'; 
+import { loginUser } from '../../services/auth'; 
 import { useAuth } from '../../context/AuthContext'; // <--- 1. Import Auth Context
 import Input from '../../components/Input/Input'; 
 import './Login.scss';
