@@ -1,10 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import './ProductCard.scss';
+import { useAuth } from '../../context/AuthContext'; // 1. Import Auth
+import { useCart } from '../../context/CartContext';
+import { ROUTES } from '../../services/routes';
 
 
 // Add isDetail prop (defaults to false)
 const ProductCard = ({ product, isDetail = false }) => {
   const navigate = useNavigate();
+  const { token } = useAuth();     
+  const { addToCart } = useCart();
   const { id, title, price, category, image, rating, description } = product;
 
   // Handler to go to details page (only if NOT already in detail view)
@@ -14,15 +19,26 @@ const ProductCard = ({ product, isDetail = false }) => {
     }
   };
 
-  // Prevent navigation when clicking "Add to Cart"
-  const handleAddToCart = (e) => {
+const handleAddToCart = (e) => {
     e.stopPropagation(); 
-    console.log("Added to cart:", title);
+
+    // A. Check Logic: Is user logged in?
+    if (!token) {
+      alert("Please login to add items to your cart!");
+      navigate(ROUTES.LOGIN);
+      return;
+    }
+
+    // B. Success Logic: Add to Context
+    addToCart(product);
+    alert("Item added to cart!");
   };
+
+  
 
   return (
     <div 
-      className={`product-card ${isDetail ? 'detail-view' : ''}`} 
+      className={`product-card ${isDetail && 'detail-view'}`} 
       onClick={handleCardClick}
     >
       <div className="card-image">
