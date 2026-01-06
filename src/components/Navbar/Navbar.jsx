@@ -11,11 +11,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
   const { token, logout } = useAuth();
-<<<<<<< Updated upstream
-=======
   const { cartCount } = useCart(); // 4. Get Cart Count
 
->>>>>>> Stashed changes
 
   const handleLogout = () => {
     logout(); 
