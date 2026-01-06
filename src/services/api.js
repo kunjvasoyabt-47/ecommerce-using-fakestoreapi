@@ -7,4 +7,13 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+export const API_ENDPOINTS = {
+  REGISTER: '/users',       
+  LOGIN: '/auth/login',  
+  HOME: '/',
+  PRODUCTS: '/products',
+  CART: '/cart',
+     
+};
 export default api;

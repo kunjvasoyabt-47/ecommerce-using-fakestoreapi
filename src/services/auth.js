@@ -1,4 +1,4 @@
-import api from './api';
+import api, { API_ENDPOINTS } from './api';
 // 1. Register User 
 export const registerUser = (userData) => {
   // FakeStoreAPI expects a specific structure to simulate a real user creation
@@ -8,11 +8,10 @@ export const registerUser = (userData) => {
     password: userData.password,
   };
   
-  return api.post('/users', payload);
+  return api.post(API_ENDPOINTS.REGISTER, payload);
 };
 
 // 2. Login User
 export const loginUser = (credentials) => {
-  // Credentials must be { username: '...', password: '...' }
-  return api.post('/auth/login', credentials);
+  return api.post(API_ENDPOINTS.LOGIN, credentials);
 };
