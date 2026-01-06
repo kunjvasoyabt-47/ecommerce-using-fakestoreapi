@@ -1,14 +1,12 @@
 @use '../../styles/variables' as *;
 
 .products-page {
-  padding: 2rem 1rem;
-  background-color: var(--bg-surface);
+  background-color: var(--bg-body);
   min-height: 100vh;
-
+  padding: 2rem 1rem;
   .container {
     max-width: 1200px;
     margin: 0 auto;
-
     h2 {
       text-align: center;
       margin-bottom: 2rem;
@@ -16,22 +14,193 @@
     }
   }
 
-  // --- GRID LAYOUT ---
+  .controls-container {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-sm);
+
+    // Responsive: Switch to row on larger screens
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.8rem;
+      color: var(--text-muted); 
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    // --- Category Pills ---
+    .category-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+
+      .filter-btn {
+        // Inherits generic button styles from global.scss, adding specific overrides:
+        padding: 0.5rem 1rem;
+        background-color: var(--bg-card); // White in light, Dark in dark
+        color: var(--text-main);
+        border: 1px solid var(--border-color);
+        border-radius: 50px; // Pill shape
+        font-size: 0.85rem;
+        font-weight: 500;
+        text-transform: capitalize;
+
+        &:hover {
+          border-color: $primary-teal;
+          color: $primary-teal;
+        }
+
+        &.active {
+          background-color: $primary-teal;
+          color: var(--bg-surface);
+          border-color: $primary-teal;
+          box-shadow: 0 4px 10px var(--bg-surface); // Subtle teal shadow
+        }
+      }
+    }
+
+    // --- Price Slider ---
+    .price-group {
+      margin-top: 2rem;
+      min-width: 100%; // Mobile default    
+      @media (min-width: 768px) {
+        min-width: 300px;
+      }
+    }
+
+    .price-slider-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .price-label {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        min-width: 2.5rem;
+        display: inline-block; 
+        text-align: center;    
+      }
+
+      .price-slider {
+        flex-grow: 1;
+        cursor: pointer;
+        height: 6px;
+        background: var(--border-color); 
+        border-radius: 5px;
+        appearance: none; // Removes browser default
+        outline: none;
+
+        // Thumb styling (The circle you drag)
+        &::-webkit-slider-thumb {
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: $primary-teal;
+          border: 3px solid var(--bg-surface); 
+          cursor: pointer;
+          transition: transform 0.1s ease;
+          box-shadow: var(--shadow-sm);
+          
+          &:hover {
+            transform: scale(1.1);
+            background: $primary-hover;
+          }
+        }
+      }
+    }
+  }
+  /* Add this to your Products.scss */
+.search-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; 
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--shadow-sm);
+  pointer-events: none; /* Allows click through to input */
+}
+.search-input {
+  width: 100%;
+  padding: 10px 10px 10px 35px; /* Extra left padding for the icon */
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
   .product-grid {
     display: grid;
-    // Responsive: Creates columns that are at least 260px wide
+    // Auto-fit columns: Min 260px, max 1fr
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 2rem;
+    // Mobile adjustment if needed
+    @include mobile {
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); // 1 column on very small screens
+      gap: 1.5rem;
+    }
   }
 
-  // --- STATES ---
-  .loading-state, .error-state {
+  // --- EMPTY STATE (No Results) ---
+  .no-results {
+    grid-column: 1 / -1; // Span full width
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 50vh;
-    font-size: 1.2rem;
-    font-weight: 600;
+    justify-content: center;
+    padding: 4rem 1rem;
+    color: var(--text-muted);
+    text-align: center;
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-reset {
+      background-color: $primary-teal;
+      color: var(--bg-surface);
+      padding: 0.75rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+    }
   }
-  .error-state { color: var(--error-color); }
+  .loading-state, .error-state {
+    @include flex-center; // Uses your mixin
+    min-height: 50vh;
+    width: 100%;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+  }
+  
+  .error-state { 
+    color: $danger-color; // Uses your static danger color
+    text-align: center;
+  }
 }

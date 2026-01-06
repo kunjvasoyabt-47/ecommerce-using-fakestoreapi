@@ -13,10 +13,12 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import Cart from './components/Cart/Cart'
 
+
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+
         <CartProvider>
           <Router>
             <Navbar />
@@ -32,6 +34,7 @@ function App() {
             </Routes>
           </Router>
       </CartProvider>
+
       </AuthProvider>
     </ThemeProvider>
   );
