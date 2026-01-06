@@ -47,11 +47,13 @@ const Cart = () => {
               <div className="item-details">
                 <h3>{item.title}</h3>
                 <p className="price">${item.price}</p>
-                <button 
+               <button 
                 className="btn-remove"
                 onClick={() => removeFromCart(item.id)}
-                title="Remove Item" // Adds a tooltip on hover
-              ></button>
+                title="Remove Item"
+              >
+                <FiTrash2 size={18} />
+              </button>
               </div>
 
               <div className="quantity-controls">
