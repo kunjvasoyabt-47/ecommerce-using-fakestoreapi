@@ -91,7 +91,7 @@ const Products = () => {
                   <button
                     key={cat}
                     onClick={() => handleFilterChange('category', cat)}
-                    className={`filter-btn ${filters.category === cat ? 'active' : ''}`}
+                    className={`filter-btn ${filters.category === cat && 'active' }`}
                   >
                     {cat.toUpperCase()}
                   </button>
