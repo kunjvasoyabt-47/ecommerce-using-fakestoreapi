@@ -38,7 +38,6 @@ const Products = () => {
         
         <div className="product-grid">
           {products.map((product) => (
-            // Pass the entire product object to the card
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
