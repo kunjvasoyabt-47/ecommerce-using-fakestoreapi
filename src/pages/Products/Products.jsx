@@ -1,6 +1,7 @@
 import  { useEffect, useState } from 'react';
 import { getAllProducts } from '../../services/product';
 import './Products.scss';
+import Loader from '../../components/Loader/Loader';
 import ProductCard from '../../components/ProductCard/ProductCard';
 
 
@@ -13,6 +14,7 @@ const Products = () => {
     const fetchProducts = async () => {
       try {
         const response = await getAllProducts();
+        setLoading(true);
         setProducts(response.data);
       } catch (err) {
         console.error(err);
@@ -25,7 +27,9 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  if (loading) return <div className="loading-state">Loading products...</div>;
+  if (loading) {
+    return <Loader />;
+  }
   if (error) return <div className="error-state">{error}</div>;
 
   return (
