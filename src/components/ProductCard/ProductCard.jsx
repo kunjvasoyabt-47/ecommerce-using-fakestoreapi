@@ -15,8 +15,8 @@ const ProductCard = ({ product, isDetail = false }) => {
   // Handler to go to details page (only if NOT already in detail view)
   const handleCardClick = () => {
     if (!isDetail) {
-      navigate(`${API_ENDPOINTS.PRODUCTS}/${id}`);
-    }
+      navigate(`${ROUTES.PRODUCTS}/${id}`);  
+      }
   };
 
 const handleAddToCart = (e) => {
