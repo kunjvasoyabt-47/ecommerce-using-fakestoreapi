@@ -163,6 +163,50 @@
     }
   }
 
+  /* Add this to Products.scss */
+
+.pagination-controls {
+  @include flex-center;
+  margin-top: 3rem;    
+  margin-bottom: 2rem;
+  gap: 1.5rem;       
+  .page-info {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 80px; 
+    text-align: center;
+  }
+
+  .page-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;    
+    padding: 0.6rem 1.2rem;
+    background-color: var(--bg-surface); 
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      border-color: $primary-teal; 
+      color: $primary-teal;
+      background-color: var(--border-color);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: var(--bg-body); 
+      border-color: var(--border-color);
+      color: var(--text-muted);
+    }
+  }
+} 
+
   // --- EMPTY STATE (No Results) ---
   .no-results {
     grid-column: 1 / -1; // Span full width

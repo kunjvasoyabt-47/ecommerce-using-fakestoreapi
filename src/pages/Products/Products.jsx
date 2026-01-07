@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getAllProducts } from '../../services/product';
-import { FiSearch } from 'react-icons/fi';
+import { FiSearch, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import './Products.scss';
 import Loader from '../../components/Loader/Loader';
 import ProductCard from '../../components/ProductCard/ProductCard';
 
 const Products = () => {
 
+  const ITEMS_PER_PAGE = 6;
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -17,6 +18,7 @@ const Products = () => {
   const [inputValue, setInputValue] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [priceBounds, setPriceBounds] = useState({ min: 0, max: 1000 });
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,6 +55,10 @@ const Products = () => {
     return () => {  clearTimeout(timerId);  };
   }, [inputValue]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, debouncedSearch]);
+
 
   const handleFilterChange = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -60,6 +66,17 @@ const Products = () => {
 
   const handleSearchInput = (e) => {
     setInputValue(e.target.value);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(prev => prev + 1);
+    }
+  };
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(prev => prev - 1);
+    }
   };
 
   const categories = ["all", ...new Set(products.map(p => p.category))];
@@ -71,6 +88,11 @@ const Products = () => {
     
     return matchCategory && matchPrice && matchSearch;
   });
+
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentProducts = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
 
   if (loading) return <Loader />;
   if (error) return <div className="error-state">{error}</div>;
@@ -117,7 +139,7 @@ const Products = () => {
             </div>
           </div>
 
-          {/* 3. Search Bar (Moved Below Price Slider) */}
+          {/* 3. Search Bar */}
           <div className="search-container">
             <div className="search-input-wrapper">
               <span className="search-icon">
@@ -136,8 +158,9 @@ const Products = () => {
 
         {/* --- PRODUCT GRID --- */}
         <div className="product-grid">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
+          {/* UPDATED: Map over 'currentProducts' instead of 'filteredProducts' */}
+          {currentProducts.length > 0 ? (
+            currentProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))
           ) : (
@@ -156,6 +179,33 @@ const Products = () => {
             </div>
           )}
         </div>
+
+        {/* 7. ADDED: Pagination Controls */}
+        {/* Only show if we have filtered items */}
+        {filteredProducts.length > 0 && (
+          <div className="pagination-controls">
+            <button 
+              className="page-btn" 
+              onClick={handlePrevPage} 
+              disabled={currentPage === 1}
+            >
+              <FiChevronLeft /> Prev
+            </button>
+
+            <span className="page-info">
+              {currentPage} of {totalPages}
+            </span>
+
+            <button 
+              className="page-btn" 
+              onClick={handleNextPage} 
+              disabled={currentPage === totalPages}
+            >
+              Next <FiChevronRight />
+            </button>
+          </div>
+        )}
+
       </div>
     </div>
   );
