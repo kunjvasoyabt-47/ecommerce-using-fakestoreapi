@@ -5,4 +5,6 @@ export const ROUTES = {
   PRODUCTS: '/products',
   PRODUCT_DETAILS: '/products/:id',
   CART: '/cart',
+
+  ADMIN_PRODUCTS: '/admin/products'
 };

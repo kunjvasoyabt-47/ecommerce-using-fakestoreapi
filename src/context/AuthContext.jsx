@@ -1,34 +1,45 @@
 import { createContext, useContext, useState } from 'react';
 
-// 1. Create the Context (Not exported, kept internal)
 const AuthContext = createContext();
 
-// 2. The Provider Component
 export const AuthProvider = ({ children }) => {
-  // Initialize state directly from localStorage so it persists on refresh
-  const [token, setToken] = useState(localStorage.getItem('userToken'));
+  // 1. FIX: Lazy Initialize 'user' (Check storage immediately, not in effect)
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
-  // Call this function when user logs in
+  // 2. FIX: Lazy Initialize 'token'
+  const [token, setToken] = useState(() => {
+    return localStorage.getItem('userToken') || null;
+  });
+
+  // (Removed the useEffect entirely because step 1 & 2 handle it now)
+
   const login = (newToken) => {
     localStorage.setItem('userToken', newToken);
     setToken(newToken);
+
+    // Update 'user' state immediately upon login
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
   };
 
-  // Call this function when user logs out
   const logout = () => {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('user');
     setToken(null);
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// 3. The Custom Hook
-// We add this comment to stop the "Fast Refresh" warning. 
-// It is safe because this hook creates no state of its own.
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

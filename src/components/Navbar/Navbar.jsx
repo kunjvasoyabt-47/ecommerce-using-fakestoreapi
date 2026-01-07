@@ -10,10 +10,8 @@ import { useCart } from '../../context/CartContext'; // 3. Added Cart Context
 const Navbar = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
-  const { token, logout } = useAuth();
+   const { token, logout, user } = useAuth();
   const { cartCount } = useCart(); // 4. Get Cart Count
-
-
   const handleLogout = () => {
     logout(); 
     navigate(ROUTES.LOGIN);
@@ -29,10 +27,17 @@ const Navbar = () => {
             <li><Link to={ROUTES.HOME}>Home</Link></li>
             <li><Link to={ROUTES.PRODUCTS}>Product</Link></li>
             <li><Link to={ROUTES.ABOUT}>About Us</Link></li>
+           
+            {user?.role === 'admin' && (
+              <li>
+                <Link to={ROUTES.ADMIN_PRODUCTS} >
+                  Admin Panel
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
-
-       
+ 
         <div className="nav-right">         
           {/* --- NEW: CART ICON (Only visible if Logged In) --- */}
           {token && (

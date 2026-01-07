@@ -1,0 +1,54 @@
+@use '../../styles/variables' as *;
+
+.admin-navbar {
+   background-color: var(--bg-surface); 
+  color: var(--text-main);
+  padding: 1rem 0;
+  
+  .admin-nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-brand { font-size: 1.5rem; font-weight: bold; color:var(--text-main); } 
+
+  .admin-links {
+    display: flex;
+    gap: 2rem;
+    
+    .admin-link {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      &:hover { color: $primary-teal; }
+    }
+  }
+
+  .admin-actions {
+    display: flex;
+    gap: 1rem;
+
+    .btn-view-user {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: $primary-teal;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover { background: $primary-teal; color: var(--bg-surface); }
+    }
+
+    .btn-logout {
+      background: $danger-color;
+      border: none;
+      color: var(--bg-surface);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+}

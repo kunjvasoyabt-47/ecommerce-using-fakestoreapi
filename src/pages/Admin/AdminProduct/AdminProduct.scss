@@ -1,0 +1,275 @@
+@use '../../../styles/variables' as *;
+
+.admin-products-page {
+  padding: 2rem 0;
+  min-height: 80vh;
+  background-color: var(--bg-body);
+  transition: background-color 0.3s ease;
+
+  // --- 1. HEADER SECTION ---
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+
+    // Responsive: Stack vertically on mobile
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    h2 {
+      color: var(--text-main);
+      font-size: 1.8rem;
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* Back Button (Outline) */
+    .btn-back {
+      padding: 0.6rem 1.2rem;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 6px;
+      font-weight: 500;
+      
+      &:hover {
+        border-color: var(--text-main);
+        color: var(--text-main);
+        background-color: var(--bg-surface);
+      }
+    }
+
+    /* Add Button (Primary Filled) */
+    .btn-add {
+      background-color: $primary-teal;
+      color: var(--bg-body); // Always white for contrast against teal
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        background-color: $primary-hover;
+      }
+    }
+  }
+
+  // --- 2. TABLE VIEW ---
+  .table-wrapper {
+    background: var(--bg-surface);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    
+    // Responsive: Handles horizontal scroll on small screens
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px; // Ensures table structure stays intact
+
+      th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+        vertical-align: middle;
+        color: var(--text-main);
+      }
+
+      th { 
+        background-color: var(--bg-body); // Slightly distinct from row
+        font-weight: 600;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      // Target the last column (The Actions Column)
+      th:last-child, 
+      td:last-child {
+        text-align: center; // Centers text in header
+        width: 160px;       // Fixed width to prevent squishing
+      }
+
+      /* Product Image */
+      .table-img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        background: var(--bg-body); // Always white background for images
+        padding: 2px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+      }
+
+      /* Truncate long titles */
+      .title-cell {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+      }
+
+      /* Action Buttons */
+      .actions-cell {
+        @include flex-center;
+        gap: 0.6rem;
+        margin-top: 1rem;
+        padding-bottom: 2rem;
+
+
+        button {
+          padding: 6px 12px;
+          border-radius: 6px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: var(--bg-body);
+          
+          &:hover { opacity: 0.9; }
+        }
+
+        .btn-edit {
+          background-color:$primary-teal; 
+        }
+
+        .btn-delete {
+          background-color: $danger-color; 
+        }
+      }
+    }
+  }
+
+  // --- 3. FORM VIEW (Add & Edit) ---
+  .edit-form-wrapper {
+    background: var(--bg-surface);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    max-width: 700px;
+    margin: 0 auto; 
+    border: 1px solid var(--border-color);
+
+    // Responsive: Less padding on mobile
+    @include mobile {
+      padding: 1.5rem;
+    }
+
+    h3 {
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Input Group */
+    .form-group {
+      margin-bottom: 1.2rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      input, textarea, select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 0.95rem;
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        transition: all 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-teal;
+          box-shadow: 0 0 0 3px rgba($primary-teal, 0.1);
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+        font-family: inherit;
+      }
+    }
+
+    /* Layout: Side-by-Side Inputs */
+    .form-row {
+      display: flex;
+      gap: 1.5rem;
+
+      // Responsive: Stack on mobile
+      @include mobile {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .form-group {
+        flex: 1; 
+      }
+    }
+
+    /* Bottom Buttons */
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+
+      button {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .btn-cancel {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        
+        &:hover {
+          background-color: var(--bg-body);
+          color: var(--text-main);
+        }
+      }
+
+      .btn-save {
+        background-color: $primary-teal;
+        color: var(--bg-body);
+        
+        &:hover {
+          background-color: $primary-hover;
+        }
+
+        &:disabled {
+          background-color: var(--bg-body);
+          color: var(--text-muted);
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

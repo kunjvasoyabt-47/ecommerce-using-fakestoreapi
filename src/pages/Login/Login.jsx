@@ -68,17 +68,38 @@ const Login = () => {
     if (errors.username || passwordMissing.length > 0 || !credentials.username || !credentials.password) {
       return;
     }
+    if (credentials.username.trim() === 'admin' && credentials.password.trim() === 'Admin@123') {
+      
+      const adminUser = { 
+        username: 'admin', 
+        role: 'admin', // This role is what AdminRoute looks for
+        token: 'mock-admin-token-123' 
+      };
+
+      localStorage.setItem('user', JSON.stringify(adminUser));
+      
+      login(adminUser.token);
+
+      alert('Welcome, Admin!');
+      navigate(ROUTES.ADMIN_PRODUCTS); // Redirect to Admin Panel
+      return; // <--- STOP HERE so we don't hit the real API
+    }
 
     try {
       setIsLoading(true);
       const response = await loginUser(credentials);
-      const token = response.data.token;
+      const { token, uid } = response.data;
       
       if (token) {
-        // --- 3. USE CONTEXT LOGIN (Updates Navbar immediately) ---
-        login(token); 
-        
-        alert('Login Successful!');
+        const userPayload = { 
+          username: credentials.username, 
+          role: 'user', 
+          token: token,
+          id: uid
+        };
+
+        localStorage.setItem('user', JSON.stringify(userPayload));
+        login(token);       
         navigate(ROUTES.HOME);
       } else {
         throw new Error('No token received');
